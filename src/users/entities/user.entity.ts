@@ -21,8 +21,8 @@ export class User {
   @Column()
   profilePicture: string;
 
-  @Column({ type: 'enum', enum: Role, default: [Role.USER]})
-  role: Role;
+  @Column({ type: 'enum', enum: Role, default:Role.USER})
+  role: Role
 
   @Column({
     type: 'timestamp',
@@ -30,6 +30,7 @@ export class User {
     nullable: false,
   })
   createdAt: Date;
+  
 
   @Column({
     type: 'timestamp',
