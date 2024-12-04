@@ -1,9 +1,9 @@
 import { Column, Entity } from "typeorm";
-import { Serviceprovider } from "./serviceprovider.entity";
+import { ServiceProvider } from "./serviceprovider.entity";
 
 
 @Entity('catering')
-export class Catering extends Serviceprovider {
+export class Catering extends ServiceProvider {
 
     @Column()
     capacity: string;

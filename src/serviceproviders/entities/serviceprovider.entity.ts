@@ -5,7 +5,7 @@ import { Role } from "src/utils/user-roles.enum";
 
 import { Column, Entity, OneToMany } from "typeorm";
 @Entity('service_provider')
-export class Serviceprovider extends User {
+export class ServiceProvider extends User {
 
  
     @Column({ type: 'enum', enum: Role, default:Role.SERVICE_PROVIDER})
@@ -26,10 +26,10 @@ export class Serviceprovider extends User {
     @Column()
      viewCounts: number;
 
-    @Column()
+    @Column({ type: 'json', nullable: true })
      socialMediaLinks: string[];
-
-    @Column()
+   
+    @Column({ type: 'json', nullable: true })
      workingHours: string[];
      
     @Column({ type: 'enum', enum: Category})

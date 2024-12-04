@@ -1,6 +1,6 @@
 import { Column, Entity } from "typeorm";
-import { Serviceprovider } from "./serviceprovider.entity";
+import { ServiceProvider } from "./serviceprovider.entity";
 
 
 @Entity('photographer')
-export class PhotoGrapher extends Serviceprovider {}
+export class PhotoGrapher extends ServiceProvider {}

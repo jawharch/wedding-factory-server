@@ -1,9 +1,9 @@
 import { Column, Entity } from "typeorm";
-import { Serviceprovider } from "./serviceprovider.entity";
+import { ServiceProvider } from "./serviceprovider.entity";
 import { weddingPlace } from "src/utils/weddingplace.enum";
 
 @Entity('wedding_place')
-export class WeddingPlace extends Serviceprovider {
+export class WeddingPlace extends ServiceProvider {
 
      @Column()
      capacity: number

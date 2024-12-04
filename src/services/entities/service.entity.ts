@@ -1,6 +1,6 @@
 
 
-import { Serviceprovider } from 'src/serviceproviders/entities/serviceprovider.entity';
+import { ServiceProvider } from 'src/serviceproviders/entities/serviceprovider.entity';
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('service')
@@ -15,12 +15,12 @@ export class Service {
   description: string;
 
   @Column()
-  price: string;
+  price: number;
 
-  @ManyToOne(() => Serviceprovider, (serviceProvider) => serviceProvider.services, {
+  @ManyToOne(() => ServiceProvider, (serviceProvider) => serviceProvider.services, {
     onDelete: 'CASCADE' })
     @JoinColumn({name:'serviceProviderId'})
-    serviceProvider: Serviceprovider;
+    serviceProvider: ServiceProvider;
 
 
   
