@@ -1,12 +1,14 @@
-import { Column, Entity } from "typeorm";
-import { ServiceProvider } from "./serviceprovider.entity";
+import { Entity, Column } from 'typeorm';
+import { ServiceProvider } from './serviceprovider.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
-
-@Entity('catering')
+@Entity()
 export class Catering extends ServiceProvider {
-
+    @ApiProperty()
     @Column()
-    capacity: string;
+    cuisineType: string; // e.g., 'French', 'Italian'
 
-
+    @ApiProperty()
+    @Column('json')
+    menu: string[]; // Array of menu items
 }

@@ -1,49 +1,41 @@
-import { Service } from "src/services/entities/service.entity";
-import { User } from "src/users/entities/user.entity";
-import { Category } from "src/utils/category.enum";
-import { Role } from "src/utils/user-roles.enum";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Review } from '../../reviews/entities/review.entity';
+import { SocialMedia } from './social-media.entity';
+import { Service } from '../../services/entities/service.entity';
+import { WorkingHours } from './working-hours.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
-import { Column, Entity, OneToMany } from "typeorm";
-@Entity('service_provider')
-export class ServiceProvider extends User {
+@Entity()
+export class ServiceProvider {
+  @ApiProperty()
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
- 
-    @Column({ type: 'enum', enum: Role, default:Role.SERVICE_PROVIDER})
-     role: Role
+  @ApiProperty()
+  @Column()
+  name: string;
 
-    @Column()
-     businessName: string 
+  @ApiProperty()
+  @Column()
+  region: string;
 
-    @Column()
-     address: string;
+  @ApiProperty()
+  @Column()
+  type: string; // e.g., 'photographer', 'catering', 'weddingVenue'
 
-    @Column()
-     city: string;
+  @ApiProperty()
+  @OneToMany(() => Review, (review) => review.reviewedId)
+  reviews: Review[];
 
-    @Column()
-     description: string ;
+  @ApiProperty()
+  @OneToMany(() => SocialMedia, (socialMedia) => socialMedia.serviceProvider)
+  socialMediaLinks: SocialMedia[];
 
-    @Column()
-     viewCounts: number;
+  @ApiProperty()
+  @OneToMany(() => Service, (service) => service.serviceProvider)
+  services: Service[];
 
-    @Column({ type: 'json', nullable: true })
-     socialMediaLinks: string[];
-   
-    @Column({ type: 'json', nullable: true })
-     workingHours: string[];
-     
-    @Column({ type: 'enum', enum: Category})
-     category: Category;
-    
-    @OneToMany(() => Service, (service) => service.serviceProvider, { cascade: true })
-     services: Service[]; 
-     
-
-
-
-
-
-
-
-
+  @ApiProperty()
+  @OneToMany(() => WorkingHours, (workingHours) => workingHours.serviceProvider)
+  workingHours: WorkingHours[];
 }

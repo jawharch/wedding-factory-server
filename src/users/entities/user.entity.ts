@@ -1,47 +1,30 @@
-import { Role } from 'src/utils/user-roles.enum';
-import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Review } from '../../reviews/entities/review.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
-@Entity('user')
-@Unique(['email'])
+@Entity()
 export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @ApiProperty()
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-  @Column({ nullable: false })
-  firstName: string;
+  @ApiProperty()
+  @Column()
+  name: string;
 
-  @Column({ nullable: false })
-  lastName: string;
-
-  @Column({ nullable: false})
+  @ApiProperty()
+  @Column()
   email: string;
 
-  @Column({ nullable: false })
+  @ApiProperty()
+  @Column()
   password: string;
 
-  @Column({ nullable: true })
-  phoneNumber: string;
+  @ApiProperty()
+  @Column()
+  role: string; // e.g., 'bride', 'groom', 'admin'
 
-  @Column({ nullable: true })
-  profilePicture: string;
-
-  @Column({ type: 'enum', enum: Role, default:Role.USER})
-  role: Role
-
-  @Column({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
-    nullable: false,
-  })
-  createdAt: Date;
-  
-
-  @Column({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
-    onUpdate: 'CURRENT_TIMESTAMP',
-    nullable: false,
-  })
-  editedAt: Date;
-
+  @ApiProperty()
+  @OneToMany(() => Review, (review) => review.reviewerId)
+  reviews: Review[]; // Reviews written by the user
 }

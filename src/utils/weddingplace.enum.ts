@@ -1,4 +1,4 @@
-export enum weddingPlace
+export enum WeddingPlace
 {
     BEACH= 'beach',
     HOTEL= 'hotel',

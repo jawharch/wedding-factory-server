@@ -1,0 +1,10 @@
+{
+  "apiModulePrefix": "Api",
+  "modelModulePrefix": "Model",
+  "withInterfaces": false,
+  "useSingleRequestParameter": true,
+  "ngVersion": "14.0.0",
+  "provideInRoot": true,
+  "useHttpClient": true,
+  "useHttpService": true
+}

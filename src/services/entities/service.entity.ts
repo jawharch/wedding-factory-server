@@ -1,30 +1,25 @@
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, Relation } from 'typeorm';
+import { ServiceProvider } from '../../serviceproviders/entities/serviceprovider.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
-
-import { ServiceProvider } from 'src/serviceproviders/entities/serviceprovider.entity';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-
-@Entity('service')
+@Entity()
 export class Service {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @ApiProperty() @PrimaryGeneratedColumn('uuid')
+  id: string;
 
+  @ApiProperty()
   @Column()
-  title: string;
+  name: string;
 
+  @ApiProperty()
   @Column()
   description: string;
 
+  @ApiProperty()
   @Column()
   price: number;
 
-  @ManyToOne(() => ServiceProvider, (serviceProvider) => serviceProvider.services, {
-    onDelete: 'CASCADE' })
-    @JoinColumn({name:'serviceProviderId'})
-    serviceProvider: ServiceProvider;
-
-
-  
-
- 
-
+  @ApiProperty()
+  @ManyToOne(() => ServiceProvider, (serviceProvider) => serviceProvider.services)
+  serviceProvider: Relation<ServiceProvider>;
 }

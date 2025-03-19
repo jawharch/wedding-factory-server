@@ -1,35 +1,65 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { ServiceprovidersService } from '../services/serviceproviders.service';
-import { CreateServiceproviderDto } from '../dto/create-serviceprovider.dto';
-import { UpdateServiceproviderDto } from '../dto/update-serviceprovider.dto';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Patch,
+  Delete,
+  Query,
+} from '@nestjs/common';
+import { ServiceProvidersService } from '../services/serviceproviders.service';
+import { CreateServiceProviderDto } from '../dto/create-serviceprovider.dto';
+import { UpdateServiceProviderDto } from '../dto/update-serviceprovider.dto';
+import { ApiCreatedResponse } from '@nestjs/swagger';
+import { Review } from '../../reviews/entities/review.entity';
+import { ServiceProvider } from '../entities/serviceprovider.entity';
 
+@Controller('service-providers')
+export class ServiceProvidersController {
+  constructor(private readonly serviceProvidersService: ServiceProvidersService) {}
 
-@Controller('serviceproviders')
-export class ServiceprovidersController {
-  constructor(private readonly serviceprovidersService: ServiceprovidersService) {}
-
+  // Create a new service provider
   @Post()
-  create(@Body() createServiceproviderDto: CreateServiceproviderDto) {
-    return this.serviceprovidersService.create(createServiceproviderDto);
+  @ApiCreatedResponse({ type: ServiceProvider })
+  async create(@Body() createServiceProviderDto: CreateServiceProviderDto) {
+    return this.serviceProvidersService.create(createServiceProviderDto);
   }
 
+  // Get all service providers
   @Get()
-  findAll() {
-    return this.serviceprovidersService.findAll();
+  @ApiCreatedResponse({ type: [ServiceProvider] })
+  async findAll() {
+    return this.serviceProvidersService.findAll();
   }
 
+  // Get service providers by type
+  @Get('by-type')
+  @ApiCreatedResponse({ type: [ServiceProvider] })
+  async findByType(@Query('type') type: string) {
+    return this.serviceProvidersService.findByType(type);
+  }
+
+  // Get a service provider by ID
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.serviceprovidersService.findOne(+id);
+  @ApiCreatedResponse({ type: ServiceProvider })
+  async findOne(@Param('id') id: string) {
+    return this.serviceProvidersService.findOne(id);
   }
 
+  // Update a service provider
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateServiceproviderDto: UpdateServiceproviderDto) {
-    return this.serviceprovidersService.update(+id, updateServiceproviderDto);
+  @ApiCreatedResponse({ type: ServiceProvider })
+  async update(
+    @Param('id') id: string,
+    @Body() updateServiceProviderDto: UpdateServiceProviderDto,
+  ) {
+    return this.serviceProvidersService.update(id, updateServiceProviderDto);
   }
 
+  // Delete a service provider
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.serviceprovidersService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return this.serviceProvidersService.remove(id);
   }
 }
