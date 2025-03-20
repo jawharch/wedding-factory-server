@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { ReviewsModule } from './reviews/reviews.module';
 import { ServiceProvidersModule } from './serviceproviders/serviceproviders.module';
 import { ServiceModule } from './services/services.module';
+import { Role } from './utils/role.entity';
 
 
 
@@ -21,6 +22,7 @@ import { ServiceModule } from './services/services.module';
       database: 'wedding',
       autoLoadEntities: true,
       synchronize: true,
+      entities: [Role]
     }),
     UsersModule,
     AuthModule,

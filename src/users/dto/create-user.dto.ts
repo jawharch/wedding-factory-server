@@ -1,5 +1,6 @@
 import { IsString, IsEmail, IsIn } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Role } from '../../utils/role.entity';
 
 export class CreateUserDto {
     @ApiProperty()
@@ -15,6 +16,5 @@ export class CreateUserDto {
     password: string;
 
     @ApiProperty()
-    @IsIn(['bride', 'groom', 'admin']) // Allowed roles
-    role: string;
+    role: Role;
 }
