@@ -11,7 +11,7 @@ import { CreateReviewDto } from '../dto/create-review.dto';
 import { UpdateReviewDto } from '../dto/update-review.dto';
 import { ReviewService } from '../services/reviews.service';
 import { Review } from '../entities/review.entity';
-import { ApiCreatedResponse } from '@nestjs/swagger';
+import { ApiConsumes, ApiCreatedResponse } from '@nestjs/swagger';
 
 @Controller('reviews')
 export class ReviewController {

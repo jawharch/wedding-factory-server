@@ -5,9 +5,8 @@ import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { ReviewsModule } from './reviews/reviews.module';
-import { ServiceProvidersModule } from './serviceproviders/serviceproviders.module';
 import { ServiceModule } from './services/services.module';
-import { Role } from './utils/role.entity';
+import { ServiceProvidersModule } from './service-providers/service-providers.module';
 
 
 
@@ -21,14 +20,14 @@ import { Role } from './utils/role.entity';
       password: 'superuser',
       database: 'wedding',
       autoLoadEntities: true,
-      synchronize: true,
-      entities: [Role]
+      synchronize: true
     }),
+    AuthModule,
     UsersModule,
     AuthModule,
     ReviewsModule,
-    ServiceProvidersModule,
-    ServiceModule],
+    ServiceModule,
+    ServiceProvidersModule],
   controllers: [AppController],
   providers: [AppService],
 })

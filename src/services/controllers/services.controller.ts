@@ -11,8 +11,7 @@ import {
 import { ServiceService } from '../services/services.service';
 import { CreateServiceDto } from '../dto/create-service.dto';
 import { UpdateServiceDto } from '../dto/update-service.dto';
-import { ApiCreatedResponse } from '@nestjs/swagger';
-import { ServiceProvider } from '../../serviceproviders/entities/serviceprovider.entity';
+import { ApiConsumes, ApiCreatedResponse } from '@nestjs/swagger';
 import { Service } from '../entities/service.entity';
 
 @Controller('services')

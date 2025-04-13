@@ -1,6 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, Relation } from 'typeorm';
-import { ServiceProvider } from '../../serviceproviders/entities/serviceprovider.entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, Relation } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { ServiceProvider } from '../../service-providers/service-providers.entity';
 
 @Entity()
 export class Service {
@@ -21,5 +21,5 @@ export class Service {
 
   @ApiProperty()
   @ManyToOne(() => ServiceProvider, (serviceProvider) => serviceProvider.services)
-  serviceProvider: Relation<ServiceProvider>;
+  serviceProvider: ServiceProvider;
 }

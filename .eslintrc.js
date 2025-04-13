@@ -1,23 +1,26 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  parserOptions: {
-    project: './tsconfig.json',
-    tsconfigRootDir: __dirname,
-  },
+  plugins: ['@typescript-eslint', 'import', 'jsdoc', 'prefer-arrow', "unused-imports"],
   extends: [
-    'plugin:@nestjs/typescript',
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended', // if using Prettier
+    'plugin:import/recommended',
+    'plugin:jsdoc/recommended',
   ],
-  plugins: ['@typescript-eslint', 'prettier'],
   env: {
     node: true,
-    jest: true,
+    es2021: true,
   },
   rules: {
-    '@typescript-eslint/no-unused-vars': ['warn'],
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    'prettier/prettier': ['error', { singleQuote: true, trailingComma: 'all' }],
+    '@typescript-eslint/no-unused-vars': ['error'],
+    'prefer-arrow/prefer-arrow-functions': ['warn'],
+    'import/no-unresolved': ['error'],
   },
+  settings: {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".ts"]
+      }
+    }
+  }
 };

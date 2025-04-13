@@ -1,28 +1,17 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Patch,
-  Delete,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, UseGuards } from '@nestjs/common';
 import { UsersService } from '../services/users.service';
-import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
-import { ApiCreatedResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiCreatedResponse } from '@nestjs/swagger';
 import { User } from '../entities/user.entity';
+import { RolesGuard } from '../../auth/roles.guard';
+import { AuthGuard } from '@nestjs/passport';
+import { Roles } from '../../auth/roles.decorator';
+import { RoleTypes } from '../../utils/user-roles.enum';
 
+@ApiBearerAuth('JWT-auth')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
-
-  // Create a new user
-  @Post()
-  @ApiCreatedResponse({ type: User })
-  async create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
-  }
 
   // Get all users
   @Get()
@@ -32,6 +21,8 @@ export class UsersController {
   }
 
   // Get a user by ID
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(RoleTypes.ADMIN)
   @Get(':id')
   @ApiCreatedResponse({ type: User })
   async findOne(@Param('id') id: string) {
@@ -39,6 +30,8 @@ export class UsersController {
   }
 
   // Update a user
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(RoleTypes.ADMIN)
   @Patch(':id')
   @ApiCreatedResponse({ type: User })
   async update(
@@ -49,6 +42,8 @@ export class UsersController {
   }
 
   // Delete a user
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Roles(RoleTypes.ADMIN)
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return this.usersService.remove(id);
